@@ -32,11 +32,9 @@ class _CounterState extends State<Counter> {
       children: [
         TextButton(
           onPressed: _increment,
-          child: Text('Push Me!')
+          child: const Text('Push Me!')
         ), 
         Text('You Pressed $_counter times')],
         );
   }
-
-  // increment Function _counter++ setState()
 }
