@@ -1,44 +1,42 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(home: MyHomePage()));
+void main() =>
+    runApp(MaterialApp(home: Scaffold(body: Center(child: Counter()))));
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
+class Counter extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Counter> createState() => _CounterState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  //initial variable
-  bool isButtonPressed = false;
+class _CounterState extends State<Counter> {
+  
+  //Row
+  //Button Counter: 4
 
-  //setState()?if
 
+
+  //initial value _counter var
+  int _counter = 0;
+  void _increment() {
+    setState(() {
+      //update counter
+      _counter++;
+    });
+  }
+
+  //widgets build() button on pressed: _increment
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: GestureDetector(
-      onTap: () {
-        if (isButtonPressed) {
-          setState(() {
-            isButtonPressed = false;
-          });
-        } else {
-          setState(() {
-            isButtonPressed = true;
-          });
-        }
-      },
-      child: Container(color: getColor()),
-    ));
+    return  Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+          onPressed: _increment,
+          child: Text('Push Me!')
+        ), 
+        Text('You Pressed $_counter times')],
+        );
   }
 
-  Color getColor() {
-    if (isButtonPressed) {
-      return Colors.yellow;
-    } else {
-      return Colors.teal;
-    }
-  }
+  // increment Function _counter++ setState()
 }
