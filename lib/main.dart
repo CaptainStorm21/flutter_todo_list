@@ -17,23 +17,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: GestureDetector(onTap: () {
-      if (isButtonPressed) {
-        setState(() {
-          isButtonPressed = false;
-        });
-      } else {
-        setState(() {
-          isButtonPressed = true;
-        });
-      }
-    },
-    
-    child: Container,
-    
-    
-    
-    
+    return Scaffold(
+        body: GestureDetector(
+      onTap: () {
+        if (isButtonPressed) {
+          setState(() {
+            isButtonPressed = false;
+          });
+        } else {
+          setState(() {
+            isButtonPressed = true;
+          });
+        }
+      },
+      child: Container(color: getColor()),
     ));
+  }
+
+  Color getColor() {
+    if (isButtonPressed) {
+      return Colors.yellow;
+    } else {
+      return Colors.teal;
+    }
   }
 }
