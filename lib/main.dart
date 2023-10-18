@@ -1,46 +1,75 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MyDialog());
 
-//stateless myapp
-class MyApp extends StatelessWidget {
+class MyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    return MaterialApp(title: 'Dialog demo', home: MyHomePage());
   }
 }
 
-//statefull myhomepage
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //initial value var
+  // initial var - string
   String _inputText = '';
+  // void show input dialog -- alertbox
+  void _showInputDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          TextEditingController controller = TextEditingController();
+          return AlertDialog(
+            title: Text("Enter some text"),
+            content: TextField(
+              controller: controller,
+              decoration: InputDecoration(hintText: 'Enter some text'),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Save'),
+                onPressed: () {
+                  setState(() {
+                    _inputText = controller.text;
+                  });
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
 
-  //widget --> setState() --> update Var -- Widget State
+// Return Scaffold
+// appBr body update State text - Icon
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('An App Bar')),
-        body: Center(
-          child: TextField(
-            decoration: InputDecoration(hintText: "Enter some text"),
-            onChanged: (value) {
-              //onPressed === anytime you update the text the value will get passed in
-              setState(() {
-                _inputText = value;
-              });
-            },
-          ),
-        ),
-        bottomSheet: Container(
-          color: Colors.blueGrey[400],
-          alignment: Alignment.center,
-          height: 100,
-          child: Text('You have entered $_inputText'),
-        ));
+      appBar: AppBar(title: Text('My New App')),
+      body: Center(
+        child: Text(
+            // result = textCondition ? truevalue : falsevalue
+            _inputText.isEmpty ? 'Tap the Icon' : '$_inputText'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showInputDialog,
+        child: Icon(Icons.edit),
+      ),
+    );
   }
 }
+
+// _input text empty or not  == '' .isEmpty
+// if .isEmpty is true the "tap the icon to enter text"
+//ellse "you entered $_inputtext"
+// result = textCondition ? truevalue : falsevalue
